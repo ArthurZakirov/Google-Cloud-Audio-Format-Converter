@@ -1,5 +1,6 @@
 data/raw/*
 data/processed/*
+config/*
 
 
 !data/.gitkeep
