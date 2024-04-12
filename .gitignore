@@ -10,3 +10,4 @@ config/*
 *.pyc
 *.m4a
 *.mp3
+*.env
