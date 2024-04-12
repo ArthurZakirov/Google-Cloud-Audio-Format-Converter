@@ -1,0 +1,11 @@
+data/raw/*
+data/processed/*
+
+
+!data/.gitkeep
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+*.pyc
+*.m4a
+*.mp3
