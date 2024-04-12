@@ -39,17 +39,27 @@ Before using the tool, you need to configure your Google Drive API credentials:
 1. Go to the [Google Developers Console](https://console.developers.google.com/).
 2. Create a new project and enable the Google Drive API for it.
 3. Create credentials for the project and download the `credentials.json` file.
-4. Place the `credentials.json` file in the project directory.
-## Usage
+4. Place the `credentials.json` file in the `config` project directory.
 
-To use this tool, execute the main script with the necessary parameters. The script will authenticate with Google Drive, download `.m4a` files, convert them to `.mp3`, and upload them back to Google Drive.
+## Authentication
 
-## Running Tests
+To authenticate with the Google Drive API, you will need to use the `quickstart.py` script. Provide the script with the paths to your `token_path` and `credentials_path`:
 
-To run the automated tests for this project, execute the following command:
-```bash 
-python -m unittest discover -v
+```bash
+python quickstart.py --token_path <path/to/your/credentials.json> <path/to/your/token.json>
 ```
+This command initializes the authentication process and stores the necessary tokens for API access.
+
+## Processing Files
+
+Once authenticated, you can use the run.py script to perform the audio file processing. Specify the directories for raw and processed data using the following command:
+
+```bash
+python run.py --raw_data_dir <path/to/your/raw_data_directory> --processed_data_dir <path/to/your/processed_data_directory>
+```
+This script will download .m4a files from the specified raw_data_dir, convert them to .mp3 format, and save the processed files to the processed_data_dir.
+
+
 ## Built With
 
 * [Google Drive API](https://developers.google.com/drive/api/v3/about-sdk) - The API used for interacting with Google Drive.
