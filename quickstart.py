@@ -9,12 +9,10 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
-#SCOPES_ROOT = "https://www.googleapis.com"
-
+SCOPES = ["https://www.googleapis.com/auth/drive"]
 parser = argparse.ArgumentParser()
-parser.add_argument("--token_path", default="config/mensmaxxing_gdrive_config.json")
-parser.add_argument("--credentials_path", default="config/mensmaxxing_gdrive_credentials.json")
-parser.add_argument("--scopes", nargs="+", default=["https://www.googleapis.com/auth/drive"])
+parser.add_argument("--token_path", default="config/gdrive_token.json")
+parser.add_argument("--credentials_path", default="config/gdrive_credentials.json")
 args = parser.parse_args()
 
 
@@ -24,8 +22,7 @@ def main(args):
   Lists the user's Gmail labels.
   """
   token_path = args.token_path
-  credentials_path = args.credentials_path
-  SCOPES = args.scopes
+  credentials_path = args.credentials_path 
   
   creds = None
   # The file token.json stores the user's access and refresh tokens, and is
