@@ -35,19 +35,30 @@ def list_files_in_directory(service, path):
     """
     folder_id = get_folder_id_by_path(service, path)
     query = f"'{folder_id}' in parents and trashed=false"
-    response = (
-        service.files()
-        .list(q=query, fields="nextPageToken, files(id, name, mimeType)")
-        .execute()
-    )
+    items = []  # Initialize an empty list to store all files
+    page_token = None  # Start with no page token
 
-    items = response.get("files", [])
-    files_and_folders = [
-        {"name": item["name"], "id": item["id"], "mimeType": item["mimeType"]}
-        for item in items
-    ]
+    while True:
+        response = (
+            service.files()
+            .list(
+                q=query,
+                fields="nextPageToken, files(id, name, mimeType)",
+                pageToken=page_token,
+                pageSize=100,
+            )  # Can specify pageSize, default is 100
+            .execute()
+        )
 
-    return files_and_folders
+        items.extend(
+            response.get("files", [])
+        )  # Add current batch of files to the list
+
+        page_token = response.get("nextPageToken", None)  # Update the page_token
+        if not page_token:  # If no more pages, break the loop
+            break
+
+    return items
 
 
 def get_folder_id_by_path(service, path):
